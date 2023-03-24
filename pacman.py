@@ -13,15 +13,18 @@ def astar_search(problem, h=None):
 
 def planear_online(pacman,pastilha,obstaculos):
     print("MUNDO")
-    display(pacman,pastilha,obstaculos,path=[])
+    world = str(display(pacman,pastilha,obstaculos,path=[]))
+    print(world)
     print("MODELO")
+    modelo = world[:pastilha[0]]
+    print(modelo)
     #funcao shenanigans
     nits = 0
-    print("ITERAÇÃO: " + nits)
-    print(_path__)
+    print("ITERAÇÃO: " + str(nits))
+    print("_path__")
     exp = 0 
-    print("Expandidos " + exp)
-    print("FIM: total de expandidos: "+ exp)
+    print("Expandidos " + str(exp))
+    print("FIM: total de expandidos: "+ str(exp))
     
     
     pass
@@ -36,7 +39,8 @@ def planear_adapt_online(pacman,pastilha,obstaculos):
     exp = 0 
     print("Expandidos " + exp)
     print("FIM: total de expandidos: "+ exp)
-    print("Novas Heuristica")
+    heur = []
+    print("Novas heurísticas: " + heur)
     pass
     
 
@@ -47,4 +51,4 @@ c = line(2,3,0,1,4)
 fronteira = quadro(0,0,10)
 obstaculos=fronteira | l | c
 print(fronteira)
-display(pacman,pastilha,obstaculos,path=[])
+planear_online(pacman,pastilha,obstaculos)
