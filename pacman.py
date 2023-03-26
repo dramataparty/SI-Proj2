@@ -13,10 +13,11 @@ def astar_search(problem, h=None):
 
 def planear_online(pacman,pastilha,obstaculos):
     print("MUNDO")
-    world = str(display(pacman,pastilha,obstaculos,path=[]))
-    print(world)
+    pworld = str(display(pacman,pastilha,obstaculos,path=[]))
+    rworld = pworld.split()
+    print(pworld)
     print("MODELO")
-    modelo = world[:pastilha[0]]
+    modelo = quadro[:pastilha[1]][:pastilha[0]]
     print(modelo)
     #funcao shenanigans
     nits = 0
