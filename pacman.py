@@ -65,15 +65,26 @@ def best_first_graph_search2(problem, f):
                 if f(child) < f(incumbent):
                     del frontier[incumbent]
                     frontier.append(child)
-    return Node, explored
+    return node, explored
 
-def planear():
-    p = pacproblem
-    astar_search(p())
-    
-    
+def plan_as(pacman,pastilha):
+    p = pacproblem()
+    p.initial = pacman
+    p.final = pastilha
+    res = astar_search(p)
+    return res.solution()
+
+
+def plan_bo(pacman,pastilha):
+    p = pacproblem()
+    p.initial = pacman
+    p.final = pastilha
+    res = best_first_graph_search2(p)
+    return res
+
+print(plan_as)
+print(plan_bo)
 def planear_online(pacman,pastilha,obstaculos):
-    heurs = set()
     expanded = []
     heurs = {}
     print("MUNDO")
@@ -86,15 +97,14 @@ def planear_online(pacman,pastilha,obstaculos):
     #funcao shenanigans
     nits = 0
     totexp = 0
-    encountrou = bool(pacman=self.goal)
+    #encountrou = bool(pacman=self.goal)
     while pacman != pastilha: 
         path=[]
         path.append(pacman)
-        pac2 = pacproblem(pacman,pastilha,obcopy,expanded,...)
-        """if bateu:
-            break"""
+        #pac2 = pacproblem(pacman,pastilha,obcopy,expanded,...)
+        #if bateu:
+        #    break
         exp = 0
-        
         nits += 1
         print("ITERAÇÃO: " + str(nits))
         print(modelo)
