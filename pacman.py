@@ -43,33 +43,39 @@ def manhatan_goal(self,no) :
         """
         return manhatan(no.state,self.goal)
     
+def mod_gen(pacman, obstaculos):
+    obcopy =obstaculos.copy()
+    for i in obstaculos:
+        if manhatan(pacman,i) > 2:
+            obcopy.remove(i)
+    return obcopy       
+
+    
 def planear_online(pacman,pastilha,obstaculos):
     heurs = set()
     expanded = []
     print("MUNDO")
-    pworld = str(display(pacman,pastilha,obstaculos,path=[]))
+    str(display(pacman,pastilha,obstaculos,path=[]))
     print("MODELO")
-    obcopy =obstaculos.copy()
-    for i in obstaculos:
-        if manhatan(pacman,i) > 2:
-            obcopy.remove(i)    
+    print(mod_gen(pacman, obstaculos))
     modelo = str(display(pacman,pastilha,obcopy,path=[]))
     print(modelo)
     #funcao shenanigans
     nits = 0
     totexp = 0
-    sol=
+    
     while pacman != pastilha: 
         path=[]
         path.append(pacman)
-        pac2 = pacproblem(pacman,pastilha,obcopy,expanded,sol)
+        pac2 = pacproblem(pacman,pastilha,obcopy,expanded,...)
+        
         exp = 0
-        astar_search2(pacproblem(pac2,pac2.manhatan_goal))
+        astar_search2(pacproblem(pac2,pac2.h))
         nits += 1
         print("ITERAÇÃO: " + str(nits))
-        print(str(display(pacman,pastilha,obcopy,path)))
+        print(mod_gen(pacman, obstaculos))
         Node.expand(pacproblem)
-        print(expanded)
+        print(len(expanded))
             
         print("Expandidos " + str(exp))
         totexp += exp
