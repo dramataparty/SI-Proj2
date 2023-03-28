@@ -85,17 +85,17 @@ def best_first_graph_search2(problem, f):
 
 def plan_as(pacman,pastilha,obstaculos):
     p = pacproblem(pacman, pastilha, obstaculos)
-    res = astar_search(p)
+    res = astar_search(p,p.manhatan_goal)
     return res.solution()
 
 
 def plan_bo(pacman,pastilha,obstaculos):
     p = pacproblem(pacman,pastilha,obstaculos)
-    res = best_first_graph_search2(p)
+    res = best_first_graph_search2(p,p.manhatan_goal)
     return res
 
 def planear_online(pacman,pastilha,obstaculos):
-    prob = pacproblem(pacman,pastilha,obstaculos)
+    p = pacproblem(pacman,pastilha,obstaculos)
     Node(pacman)
     print("MUNDO")
     str(display(pacman,pastilha,obstaculos,path=[]))
@@ -120,7 +120,7 @@ def planear_online(pacman,pastilha,obstaculos):
         exp = 0
         nits += 1
         print("ITERAÇÃO: " + str(nits))
-        str(display(pacman,pastilha,obcopy,path=Node.child_node(pacman)))
+        str(display(pacman,pastilha,obcopy,path=Node.child_node(pacman,p,p.manhatan_goal)))
         exp += len(path)
         print("Expandidos " + str(exp))
         print(path)
