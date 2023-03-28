@@ -29,7 +29,12 @@ class pacproblem(Problem):
     def path_cost(self,c,state,action,new):
         return c+self.costs[action]
 
-
+    def manhatan_goal(self,no) : 
+        """Uma heurística é uma função de um estado.
+        Nesta implementação, é uma função do estado associado ao nó
+        (objecto da classe Node) fornecido como argumento.
+        """
+        return manhatan(no.state,self.goal)
 
 
 
@@ -78,7 +83,7 @@ def best_first_graph_search2(problem, f):
                     frontier.append(child)
     return node, explored
 
-"""def plan_as(pacman,pastilha,obstaculos):
+def plan_as(pacman,pastilha,obstaculos):
     p = pacproblem(pacman, pastilha, obstaculos)
     res = astar_search(p)
     return res.solution()
@@ -87,13 +92,11 @@ def best_first_graph_search2(problem, f):
 def plan_bo(pacman,pastilha,obstaculos):
     p = pacproblem(pacman,pastilha,obstaculos)
     res = best_first_graph_search2(p)
-    return res"""
+    return res
 
 def planear_online(pacman,pastilha,obstaculos):
     prob = pacproblem(pacman,pastilha,obstaculos)
     Node(pacman)
-    expanded = []
-    heurs = {}
     print("MUNDO")
     str(display(pacman,pastilha,obstaculos,path=[]))
     print("MODELO")
@@ -104,25 +107,23 @@ def planear_online(pacman,pastilha,obstaculos):
     #funcao shenanigans
     nits = 0
     totexp = 0
-    #encountrou = bool(pacman=self.goal)
-    while pacman != pastilha: 
-        """str(display(pacman,pastilha,obcopy,path=Node.child_node(pacman)))
+    encountrou = bool(pacman==pastilha)
+    while not encountrou: 
         path=[]
         path.append(pacman)
         print(path)
         bateu = (pacman in obstaculos)
-        plan_as(pacman,pastilha)
+        plan_as(pacman,pastilha,obstaculos)
         if bateu:
-            plan_as(pacman,pastilha)
-            break"""
+            plan_as(pacman,pastilha,obstaculos)
+            break
         exp = 0
         nits += 1
         print("ITERAÇÃO: " + str(nits))
-        print(modelo)
-        Node.expand(prob)
-        print(len(expanded))
-            
+        str(display(pacman,pastilha,obcopy,path=Node.child_node(pacman)))
+        exp += len(path)
         print("Expandidos " + str(exp))
+        print(path)
         totexp += exp
     print("FIM: total de expandidos: "+ str(totexp))
     pass
