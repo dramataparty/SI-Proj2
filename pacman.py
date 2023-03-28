@@ -28,12 +28,23 @@ class pacproblem(Problem):
     
     def path_cost(self,c,state,action,new):
         return c+self.costs[action]
-    
-def mod_gen(pacman, obstaculos):
+
+
+
+
+
+
+def mod_gen(pacman, obstaculos, path=[]):
     obcopy =obstaculos.copy()
+    if path!=[]:
+        for i in obstaculos:
+            for e in path:
+                if manhatan(pacman,i)and manhatan(e,i) > 2:
+                    obcopy.remove(i)
+            break 
     for i in obstaculos:
-        if manhatan(pacman,i) > 2:
-            obcopy.remove(i)
+            if manhatan(pacman,i) > 2:
+                obcopy.remove(i)
     return obcopy       
 
 
@@ -67,24 +78,20 @@ def best_first_graph_search2(problem, f):
                     frontier.append(child)
     return node, explored
 
-def plan_as(pacman,pastilha):
-    p = pacproblem()
-    p.initial = pacman
-    p.final = pastilha
+"""def plan_as(pacman,pastilha,obstaculos):
+    p = pacproblem(pacman, pastilha, obstaculos)
     res = astar_search(p)
     return res.solution()
 
 
-def plan_bo(pacman,pastilha):
-    p = pacproblem()
-    p.initial = pacman
-    p.final = pastilha
+def plan_bo(pacman,pastilha,obstaculos):
+    p = pacproblem(pacman,pastilha,obstaculos)
     res = best_first_graph_search2(p)
-    return res
+    return res"""
 
-print(plan_as)
-print(plan_bo)
 def planear_online(pacman,pastilha,obstaculos):
+    prob = pacproblem(pacman,pastilha,obstaculos)
+    Node(pacman)
     expanded = []
     heurs = {}
     print("MUNDO")
@@ -99,16 +106,20 @@ def planear_online(pacman,pastilha,obstaculos):
     totexp = 0
     #encountrou = bool(pacman=self.goal)
     while pacman != pastilha: 
+        """str(display(pacman,pastilha,obcopy,path=Node.child_node(pacman)))
         path=[]
         path.append(pacman)
-        #pac2 = pacproblem(pacman,pastilha,obcopy,expanded,...)
-        #if bateu:
-        #    break
+        print(path)
+        bateu = (pacman in obstaculos)
+        plan_as(pacman,pastilha)
+        if bateu:
+            plan_as(pacman,pastilha)
+            break"""
         exp = 0
         nits += 1
         print("ITERAÇÃO: " + str(nits))
         print(modelo)
-        Node.expand(pacproblem)
+        Node.expand(prob)
         print(len(expanded))
             
         print("Expandidos " + str(exp))
@@ -152,4 +163,6 @@ c = line(2,3,0,1,4)
 fronteira = quadro(0,0,10)
 obstaculos= fronteira | l | c
 print(fronteira)
+#plan_as(pacman,pastilha,obstaculos)
+#plan_bo(pacman,pastilha,obstaculos)
 planear_online(pacman,pastilha,obstaculos)
