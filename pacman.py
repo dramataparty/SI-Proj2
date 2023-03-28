@@ -36,7 +36,12 @@ class pacproblem(Problem):
     def path_cost(self,c,state,action,new):
         return c+self.costs[action]
     
-
+def manhatan_goal(self,no) : 
+        """Uma heurística é uma função de um estado.
+        Nesta implementação, é uma função do estado associado ao nó
+        (objecto da classe Node) fornecido como argumento.
+        """
+        return manhatan(no.state,self.goal)
     
 def planear_online(pacman,pastilha,obstaculos):
     heurs = set()
@@ -53,7 +58,8 @@ def planear_online(pacman,pastilha,obstaculos):
     #funcao shenanigans
     nits = 0
     totexp = 0
-    '''while pacman != pastilha: 
+    sol=
+    while pacman != pastilha: 
         path=[]
         path.append(pacman)
         pac2 = pacproblem(pacman,pastilha,obcopy,expanded,sol)
@@ -67,10 +73,23 @@ def planear_online(pacman,pastilha,obstaculos):
             
         print("Expandidos " + str(exp))
         totexp += exp
-    print("FIM: total de expandidos: "+ str(totexp))'''
+    print("FIM: total de expandidos: "+ str(totexp))
     pass
 
 def planear_adapt_online(pacman,pastilha,obstaculos):
+    """ As novas heuristicas deste modelo vão ser calculadas da seguinte forma:
+        tamanho da solução (neste caso é 7) - o custo do nó (isto é a distancia que o pacman teve de andar até ao nó em questão)
+        Sendo assim neste exemplo o mapa das heuristicas ficaria assim:
+        # . . . 
+        # . # .
+        # 7 # . 7 - 0(não teve que andar nada visto que está na posição inicial)
+        # 6 # . 7 - 1(path = 1 o pacman teve de andar 1 para chegar a esta casa)
+        # 5 # . 7 - 2(path = 2)
+        # 4 # . ....
+        # 3 # . 7 - 3(path = 3)
+        # @ # *
+        # . . ."""
+ 
     print("MUNDO")
     display(pacman,pastilha,obstaculos,path=[])
     print("MODELO")
