@@ -2,13 +2,6 @@
 from searchPlus import *
 from p2_aux import *
 
-def astar_search2(problem, h=None):
-        """A* search is best-first graph search with f(n) = g(n)+h(n).
-        You need to specify the h function when you call astar_search, or
-        else in your Problem subclass."""
-        #h = memoize(h or problem.h, 'h')
-        f = lambda n: n.path_cost + h(n)
-        return best_first_graph_search(problem, lambda n: n.path_cost + h(n))
 
 class pacproblem(Problem):
 
@@ -36,13 +29,6 @@ class pacproblem(Problem):
     def path_cost(self,c,state,action,new):
         return c+self.costs[action]
     
-def manhatan_goal(self,no) : 
-        """Uma heurística é uma função de um estado.
-        Nesta implementação, é uma função do estado associado ao nó
-        (objecto da classe Node) fornecido como argumento.
-        """
-        return manhatan(no.state,self.goal)
-    
 def mod_gen(pacman, obstaculos):
     obcopy =obstaculos.copy()
     for i in obstaculos:
@@ -50,30 +36,68 @@ def mod_gen(pacman, obstaculos):
             obcopy.remove(i)
     return obcopy       
 
+
+def best_first_graph_search2(problem, f):
+    """Search the nodes with the lowest f scores first.
+    You specify the function f(node) that you want to minimize; for example,
+    if f is a heuristic estimate to the goal, then we have greedy best
+    first search; if f is node.depth then we have breadth-first search.
+    There is a subtlety: the line "f = memoize(f, 'f')" means that the f
+    values will be cached on the nodes as they are computed. So after doing
+    a best first search you can examine the f values of the path returned."""
+    f = memoize(f, 'f')
+    node = Node(problem.initial)
+    if problem.goal_test(node.state):
+        return node
+    frontier = PriorityQueue(min, f)
+    frontier.append(node)
+    explored = set()
+    while frontier:
+        node = frontier.pop()
+        if problem.goal_test(node.state):
+            return node
+        explored.add(node.state)
+        for child in node.expand(problem):
+            if child.state not in explored and child not in frontier:
+                frontier.append(child)
+            elif child in frontier:
+                incumbent = frontier[child]
+                if f(child) < f(incumbent):
+                    del frontier[incumbent]
+                    frontier.append(child)
+    return Node, explored
+
+def planear():
+    p = pacproblem
+    astar_search(p())
+    
     
 def planear_online(pacman,pastilha,obstaculos):
     heurs = set()
     expanded = []
+    heurs = {}
     print("MUNDO")
     str(display(pacman,pastilha,obstaculos,path=[]))
     print("MODELO")
-    print(mod_gen(pacman, obstaculos))
+    obcopy = mod_gen(pacman, obstaculos)
     modelo = str(display(pacman,pastilha,obcopy,path=[]))
     print(modelo)
+    
     #funcao shenanigans
     nits = 0
     totexp = 0
-    
+    encountrou = bool(pacman=self.goal)
     while pacman != pastilha: 
         path=[]
         path.append(pacman)
         pac2 = pacproblem(pacman,pastilha,obcopy,expanded,...)
-        
+        """if bateu:
+            break"""
         exp = 0
-        astar_search2(pacproblem(pac2,pac2.h))
+        
         nits += 1
         print("ITERAÇÃO: " + str(nits))
-        print(mod_gen(pacman, obstaculos))
+        print(modelo)
         Node.expand(pacproblem)
         print(len(expanded))
             
