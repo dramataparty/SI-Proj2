@@ -120,7 +120,7 @@ def planear_online(pacman,pastilha,obstaculos):
         exp = 0
         nits += 1
         print("ITERAÇÃO: " + str(nits))
-        str(display(pacman,pastilha,obcopy,path=Node.child_node(pacman,p,p.manhatan_goal)))
+        str(display(pacman,pastilha,obcopy,path))
         exp += len(path)
         print("Expandidos " + str(exp))
         print(path)
